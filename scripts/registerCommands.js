@@ -12,15 +12,19 @@ const commands = [
 ];
 
 (async () => {
-    const response = await fetch(`https://discord.com/api/v10/applications/${APPLICATION_ID}/guilds/${GUILD_ID}/commands`, {
-        method: 'PUT',
-        headers: {
-            'Authorization': `Bot ${DISCORD_TOKEN}`,
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(commands),
-    });
+    try {
+        const response = await fetch(`https://discord.com/api/v10/applications/${APPLICATION_ID}/guilds/${GUILD_ID}/commands`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bot ${DISCORD_TOKEN}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(commands),
+        });
 
-    const data = await response.json();
-    console.log(data);
+        const data = await response.json();
+        console.log('Commands registered:', data);
+    } catch (error) {
+        console.error('Error registering commands:', error);
+    }
 })();
